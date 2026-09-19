@@ -1,0 +1,5 @@
+[
+{"name":"BBC World Service","url":"https://stream.live.vc.bbcmedia.co.uk/bbc_world_service","fallbackUrl":""},
+{"name":"FIP","url":"https://icecast.radiofrance.fr/fip-midfi.mp3?id=openapi","fallbackUrl":""},
+{"name":"France Inter","url":"https://icecast.radiofrance.fr/franceinter-midfi.mp3?id=openapi","fallbackUrl":""}
+]

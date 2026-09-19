@@ -1,0 +1,45 @@
+name: Build Fast Radio
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.13'
+      - name: Build APK and Log
+        shell: bash
+        run: |
+          set +e
+          echo "=== Fast Radio Build Log ===" > build.log
+          date -u >> build.log
+          java -version >> build.log 2>&1
+          gradle --version >> build.log 2>&1
+          gradle --no-daemon :app:assembleDebug --stacktrace --info >> build.log 2>&1
+          STATUS=$?
+          find app/build/outputs/apk -type f -name "*.apk" -print >> build.log 2>&1 || true
+          echo "BUILD EXIT CODE: $STATUS" >> build.log
+          exit $STATUS
+      - name: Upload Build Log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: Fast-Radio-Build-Log
+          path: build.log
+      - name: Upload APK
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: Fast-Radio-APK
+          path: app/build/outputs/apk/**/*.apk
+          if-no-files-found: error
