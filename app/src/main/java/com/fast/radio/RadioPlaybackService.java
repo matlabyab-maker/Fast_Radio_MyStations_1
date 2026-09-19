@@ -24,7 +24,7 @@ public class RadioPlaybackService extends MediaSessionService {
         super.onCreate();
 
         DefaultLoadControl loadControl = new DefaultLoadControl.Builder()
-                .setBufferParameters(
+                .setBufferDurationsMs(
                         5_000,   // 5 seconds minimum buffer
                         10_000,  // 10 seconds maximum buffer
                         1_000,   // 1 second playback-start buffer

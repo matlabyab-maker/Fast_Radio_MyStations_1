@@ -3,6 +3,7 @@ package com.fast.radio;
 import android.os.Bundle;
 import android.os.Environment;
 import android.widget.*;
+import android.content.ComponentName;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.media3.common.MediaItem;
 import androidx.media3.common.Player;
@@ -34,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
         addButton=findViewById(R.id.addButton);
 
         future=new MediaController.Builder(this,
-                new SessionToken(this, RadioPlaybackService.class)).buildAsync();
+                new SessionToken(this, new ComponentName(this, RadioPlaybackService.class))).buildAsync();
         future.addListener(() -> {
             try {
                 controller=future.get();

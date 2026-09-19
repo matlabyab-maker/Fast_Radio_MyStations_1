@@ -1,7 +1,7 @@
 name: Build Fast Radio
 on:
   push:
-    branches: [ main ]
+    branches: [ main, master ]
   workflow_dispatch:
 permissions:
   contents: read
